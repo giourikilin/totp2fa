@@ -14,7 +14,10 @@ introduces a significant key management challenge")
 
 - if we support android auto backup, no backing up of the TOTP fields!
 
-- implement recovery (how do we auhtenticate users during recovery? Maybe fingerprint data?)
+- implement recovery (how do we auhtenticate users during recovery? Maybe fingerprint data?, or use [this](https://arxiv.org/pdf/2112.08431.pdf) approach using honeywords?)
+- Account recovery is essentially a bypass of the system’s main
+security protocols and needs to be handled as an alternative authentication process
+- maybe use an account recovery code 
 ...
 
 ### Questions to discuss
@@ -26,5 +29,6 @@ introduces a significant key management challenge")
 - combining honeytokens and google authenticator: https://arxiv.org/pdf/2112.08431.pdf 
 - the design and implementation of a 2FA application: https://www.usenix.org/system/files/soups2022-poster69_smith_abstract_final.pdf
 - definition on how to transfer issuer, label and secret via QR codes: https://github.com/google/google-authenticator/wiki/Key-Uri-Format
+- account recovery methods for 2FA: https://digitalcommons.odu.edu/cgi/viewcontent.cgi?article=1351&context=psychology_etds
 
 
