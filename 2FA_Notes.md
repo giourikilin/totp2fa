@@ -38,4 +38,17 @@ security protocols and needs to be handled as an alternative authentication proc
 - definition on how to transfer issuer, label and secret via QR codes: https://github.com/google/google-authenticator/wiki/Key-Uri-Format
 - account recovery methods for 2FA: https://digitalcommons.odu.edu/cgi/viewcontent.cgi?article=1351&context=psychology_etds
 
+### Prerequisites
+- Apps should consider not supporting plaintext backups.
+- Apps should encrypt all TOTP fields, including the secret, issuer, and label.
+- Apps that rely on remote key servers to generate/store random keys should choose different entities for storage of keys and ciphertext
+- We have several recommendations for apps that derive keys from passwords. First, they should implement wellestablished best practices to encourage users to create strong passwords.
+- NEVER allow the backup password to leave the app.
+-  Once the key is derived from the password, the password should be wiped from memory and the key should be securely stored on the device using the Android Key Store 24 so that it can be used to encrypt TOTP accounts added in the future.
+-  Finally, we recommend that TOTP apps that derive keys from passwords should capitalize on the fact that the KDF
+operation happens so infrequently and configure it to run significantly slower than existing recommendations for password
+storage.
+- TOTP apps should only ever perform key derivation two times: when the user first enables the backup mechanism, and when the user is attempting to recover.
+- Show a progress bar and why it takes so long to derive the key. Explain security risk metigation to user by running longer time.
+- TOTP apps that derive keys from passwords should adopt the Argon2 KDF.
 
