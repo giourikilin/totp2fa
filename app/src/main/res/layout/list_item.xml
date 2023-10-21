@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="143dp"
+            tools:layout_editor_absoluteX="171dp"
+            tools:layout_editor_absoluteY="-29dp">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="22dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="48dp"
+                app:layout_constraintEnd_toEndOf="@+id/userTag"
+                app:layout_constraintHorizontal_bias="0.35"
+                app:layout_constraintStart_toEndOf="@+id/otp"
+                app:layout_constraintTop_toBottomOf="@+id/userTag"
+                app:layout_goneMarginBottom="10dp" />
+
+            <TextView
+                android:id="@+id/otp"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:text="526362"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/org"
+                app:layout_constraintVertical_bias="0.592" />
+
+            <TextView
+                android:id="@+id/userTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="192dp"
+                android:layout_toEndOf="@+id/org"
+                android:text="username/email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.214"
+                app:layout_constraintRight_toLeftOf="@id/org"
+                app:layout_constraintStart_toEndOf="@+id/org"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/org"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="org name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
