@@ -27,6 +27,14 @@ security protocols and needs to be handled as an alternative authentication proc
 3. Backup manager: encrypts the TOTP fields (argon2) using the symmetric key and sends the fields to storage location
 4. Recovery manager: deals with backup, needs to authenticate the data
 
+### First steps
+- implement QR-code scanner:
+    - scan Qr-code, exctract TOTP fields, store them encrypted on the device
+- implement backup password creator
+    - follow current password recommendations, generating the key using argon2, deleting the password from memory, store the key to android key store
+- implement OTP generator:
+    - use the TOTP algorithm
+
 ### Questions to discuss
 - Where and how do we store the secret, label and issuer that was registered in the app? (locally? encrypted?)
 
