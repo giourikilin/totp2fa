@@ -1,5 +1,5 @@
 
-# Implementation of a TOTP F2A application
+# Implementation of a TOTP 2FA application
 
 ## Implementation
 - qr-code scanner to allow users to register secret, label and issuer (the transfer format is defined [here](https://github.com/google/google-authenticator/wiki/Key-Uri-Format))
@@ -19,6 +19,13 @@ introduces a significant key management challenge")
 security protocols and needs to be handled as an alternative authentication process
 - maybe use an account recovery code 
 ...
+
+### Components
+0. Apllication intitalizer: generates the private key when the app is started (from password or random), and stores it in a secure location (android key storage)
+1. QR-code scanner: deals with scanning the qr-codes on websites and storing the TOTP fields on the device
+2. OTP generator: Generates the OTPs based on the TOTP algorithm and the current time
+3. Backup manager: encrypts the TOTP fields (argon2) using the symmetric key and sends the fields to storage location
+4. Recovery manager: deals with backup, needs to authenticate the data
 
 ### Questions to discuss
 - Where and how do we store the secret, label and issuer that was registered in the app? (locally? encrypted?)
