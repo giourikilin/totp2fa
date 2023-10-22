@@ -10,16 +10,20 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.totpapp.R
 import com.example.totpapp.databinding.ActivityQrScannerBinding
+import com.example.totpapp.storage.StorageManager
 import com.google.zxing.integration.android.IntentIntegrator
+import org.json.JSONObject
 
 
 class QRScannerActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityQrScannerBinding
+    private lateinit var storageManager: StorageManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qr_scanner)
         binding = ActivityQrScannerBinding.inflate(layoutInflater)
+        this.storageManager = StorageManager(this@QRScannerActivity)
 
         if (ContextCompat.checkSelfPermission(this@QRScannerActivity, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this@QRScannerActivity, arrayOf(android.Manifest.permission.CAMERA), 123)
@@ -49,7 +53,7 @@ class QRScannerActivity: AppCompatActivity() {
         }
     }
 
-    fun extractValues(url: String) : Boolean{
+    private fun extractValues(url: String) : Boolean{
         try {
             val query = url.removePrefix("otpauth://totp/")
             val secret = ("secret=[A-Z, 0-9, a-z]*".toRegex()).find(query)!!
@@ -58,6 +62,13 @@ class QRScannerActivity: AppCompatActivity() {
             findViewById<TextView>(R.id.label_text).setText(label)
             findViewById<TextView>(R.id.issuer_text).setText(issuer.value)
             findViewById<TextView>(R.id.secret_text).setText(secret.value)
+
+            val data = JSONObject()
+            data.put("label", label)
+            data.put("issuer", issuer.value.removePrefix("issuer="))
+            data.put("secret", secret.value.removePrefix("secret="))
+            this.storageManager.saveToFile(data)
+
         }catch (e: Exception){
             Toast.makeText(this, "This is not a valid QR code", Toast.LENGTH_LONG).show()
             return false
