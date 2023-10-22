@@ -3,6 +3,7 @@
 
 ## Implementation
 - qr-code scanner to allow users to register secret, label and issuer (the transfer format is defined [here](https://github.com/google/google-authenticator/wiki/Key-Uri-Format))
+    - eg: 'otpauth://totp/GitHub:johanna58?secret=5CATTFTHC6LM55MN&issuer=GitHub' 
 - implementation of TOTP algrorithm to generate the TOTP from the secret and the time (documented [here](https://datatracker.ietf.org/doc/html/rfc6238)) - maybe available from a library
 - set up backup mechanism: encrypt the TOTP fields, choose the key derivation function (with or without password - "Using random keys is cryptographically ideal, but it
 introduces a significant key management challenge")
