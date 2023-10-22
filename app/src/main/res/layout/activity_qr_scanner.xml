@@ -6,4 +6,12 @@
     android:layout_height="match_parent">
 
 
+    <TextView
+        android:id="@+id/qr_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="qr_data"
+        tools:layout_editor_absoluteX="169dp"
+        tools:layout_editor_absoluteY="227dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
