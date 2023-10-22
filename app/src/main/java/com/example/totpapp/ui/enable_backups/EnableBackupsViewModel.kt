@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class EnableBackupsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is enable backups Fragment"
+        value = "Register below to enable backups"
     }
     val text: LiveData<String> = _text
 }
