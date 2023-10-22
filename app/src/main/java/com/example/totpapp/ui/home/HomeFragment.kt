@@ -1,15 +1,18 @@
 package com.example.totpapp.ui.home
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.totpapp.R
 import com.example.totpapp.databinding.FragmentHomeBinding
+import java.time.Instant
 
 
 class HomeFragment : Fragment() {
@@ -45,10 +48,16 @@ class HomeFragment : Fragment() {
     private fun loadData(){
         val item1 = HomeViewModel("RUG", "giouri123", "234682", 30)
         val item2 = HomeViewModel("RUG", "elena123", "981223", 30)
-        val item3 = HomeViewModel("RUG", "johana123", "645732", 30)
+        val item3 = HomeViewModel("RUG", "johanna123", "645732", 30)
         itemModelList.add(item1)
         itemModelList.add(item2)
         itemModelList.add(item3)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getUniTimeInSec(): Long {
+        val timeValue = Instant.now()
+        return timeValue.epochSecond
     }
 
     override fun onDestroyView() {
