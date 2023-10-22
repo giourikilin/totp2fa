@@ -25,6 +25,8 @@ class StorageManager(context: Context) {
         context.openFileOutput(this.filename, Context.MODE_PRIVATE).use{
             it.write(data.toString().toByteArray())
         }
+        // TODO: add try/catch, check whether it already exists to replace
+        // TODO: add encryption
         return true
     }
 
@@ -34,6 +36,7 @@ class StorageManager(context: Context) {
                 "$some\n$text"
             }
         }
+        // TODO: add decryption
         return contents
     }
 }
