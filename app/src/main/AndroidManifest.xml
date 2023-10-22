@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false" />
     <uses-permission android:name= "android.permission.CAMERA"/>
     <application
         android:allowBackup="true"
@@ -31,6 +27,12 @@
             android:name=".ui.qr_scanner.QRScannerActivity"
             android:label = "QR Scanner">
         </activity>
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation" />
     </application>
-
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 </manifest>
