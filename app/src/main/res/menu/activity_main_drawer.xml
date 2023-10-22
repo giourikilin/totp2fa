@@ -16,5 +16,9 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
+        <item
+            android:id="@+id/nav_enable_backup"
+            android:icon="@android:drawable/ic_menu_save"
+            android:title="Enable Backups" />
     </group>
 </menu>

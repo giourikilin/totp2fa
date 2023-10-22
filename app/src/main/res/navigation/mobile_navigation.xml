@@ -22,4 +22,9 @@
         android:name="com.example.totpapp.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_enable_backup"
+        android:name="com.example.totpapp.ui.enable_backups.EnableBackupsFragment"
+        android:label="@string/menu_enable_backups"
+        tools:layout="@layout/fragment_enable_backups" />
 </navigation>
