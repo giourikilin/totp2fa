@@ -1,4 +1,4 @@
-package com.example.totpapp.ui.gallery
+package com.example.totpapp.ui.qr_scanner
 
 
 import android.os.Bundle
@@ -8,20 +8,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.totpapp.databinding.FragmentGalleryBinding
+import com.example.totpapp.databinding.FragmentQrScannerBinding
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 
 
-class GalleryFragment : Fragment() {
+class QRScannerFragment : Fragment() {
 
-    private var _binding: FragmentGalleryBinding? = null
+    private var _binding: FragmentQrScannerBinding? = null
 
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentGalleryBinding.inflate(inflater, container, false)
+        _binding = FragmentQrScannerBinding.inflate(inflater, container, false)
         scanFromFragment()
         return binding.root
     }

@@ -1,9 +1,7 @@
-package com.example.totpapp.ui.qr_scanner
+package com.example.totpapp.ui.qr_scanner_2
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
-import android.net.wifi.ScanResult
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast

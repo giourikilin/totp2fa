@@ -3,7 +3,6 @@ package com.example.totpapp
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,7 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.totpapp.databinding.ActivityMainBinding
-import com.example.totpapp.ui.qr_scanner.QRScannerActivity
+import com.example.totpapp.ui.qr_scanner_2.QRScannerActivity
 
 class MainActivity : AppCompatActivity() {
 

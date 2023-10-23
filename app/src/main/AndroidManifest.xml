@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.qr_scanner.QRScannerActivity"
+            android:name=".ui.qr_scanner_2.QRScannerActivity"
             android:label = "QR Scanner">
         </activity>
         <activity
