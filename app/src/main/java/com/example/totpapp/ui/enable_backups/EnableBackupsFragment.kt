@@ -18,8 +18,8 @@ import com.lambdapioneer.argon2kt.Argon2Mode
 import java.security.SecureRandom
 
 
-class EnableBackupsFragment : Fragment() {
 
+class EnableBackupsFragment : Fragment() {
     private var _binding: FragmentEnableBackupsBinding? = null
 
     // This property is only valid between onCreateView and
@@ -61,7 +61,8 @@ class EnableBackupsFragment : Fragment() {
             // TODO (login functionality): verify a password against an encoded string representation
 
             // Write password and hashResult in Android KeyStore
-
+            val keyStoreManager = KeyStoreManager(requireContext()) //TODO:this?
+            keyStoreManager.saveValue("key", hashResult.encodedOutputAsString())
         }
 
        return view
