@@ -7,12 +7,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.totpapp.R
 import com.example.totpapp.databinding.FragmentEnableBackupsBinding
 import android.util.Log
+import com.lambdapioneer.argon2kt.Argon2Kt
+import com.lambdapioneer.argon2kt.Argon2KtResult
+import com.lambdapioneer.argon2kt.Argon2Mode
+import java.security.SecureRandom
 
 
 class EnableBackupsFragment : Fragment() {
@@ -49,10 +52,16 @@ class EnableBackupsFragment : Fragment() {
 
         //using button click listener
         buttonRegister.setOnClickListener {
-            //getting username& password
+            //get password
             var pwd=editTextPassword.text.toString()
-            println(pwd)
-            Log.d("PWD", pwd)
+            Log.d("PWD og", pwd)
+
+            var hashResult=generateKey(pwd)
+
+            // TODO (login functionality): verify a password against an encoded string representation
+
+            // Write password and hashResult in Android KeyStore
+
         }
 
        return view
@@ -61,5 +70,40 @@ class EnableBackupsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private val random = SecureRandom()
+    private fun generateSalt(): ByteArray {
+        // TODO: make sure salt is as described on paper
+        val salt = ByteArray(16)
+        random.nextBytes(salt)
+        return salt
+    }
+
+    private fun generateKey(pwd: String): Argon2KtResult {
+        val charset = Charsets.UTF_8
+        val pwdByteArray = pwd.toByteArray(charset)
+        Log.d("PWD ByteArray", pwdByteArray.contentToString())
+
+        //generate salt
+        val saltByteArray = generateSalt()
+        Log.d("saltByteArray", saltByteArray.contentToString())
+
+        // initialize Argon2Kt and load the native library
+        val argon2Kt = Argon2Kt()
+
+        // hash password
+        val hashResult : Argon2KtResult = argon2Kt.hash(
+            mode = Argon2Mode.ARGON2_I,
+            password = pwdByteArray,
+            salt = saltByteArray,
+            tCostInIterations = 5,
+            mCostInKibibyte = 65536
+        )
+
+        Log.d("Raw hash", hashResult.rawHashAsHexadecimal())
+        Log.d("Encoded string",hashResult.encodedOutputAsString())
+
+        return hashResult
     }
 }
