@@ -1,13 +1,46 @@
 package com.example.totpapp.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel( orgV: String,  uV: String,  otpV: String,  pV: Int) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    private var orgValue: String
+    private var userValue: String
+    private var otpValue: String
+    private var progressValue: Int
+
+    init {
+        orgValue = orgV
+        userValue = uV
+        otpValue = otpV
+        progressValue = pV
     }
-    val text: LiveData<String> = _text
+
+    fun getOrgValue(): String {
+        return orgValue
+    }
+    fun getUserValue(): String {
+        return userValue
+    }
+    fun getOtpValue(): String {
+        return otpValue
+    }
+    fun getProgressValue(): Int {
+        return progressValue
+    }
+
+
+    fun setOrgValue(newOrg: String){
+        orgValue = newOrg
+    }
+    fun setUserValue(newUser: String){
+        userValue = newUser
+    }
+    fun setOtpValue(newOtp: String){
+        otpValue = newOtp
+    }
+    fun setProgressValue(newProgress: Int){
+        progressValue = newProgress
+    }
+
 }
