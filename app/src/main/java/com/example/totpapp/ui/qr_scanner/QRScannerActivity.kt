@@ -24,20 +24,23 @@ class QRScannerActivity: AppCompatActivity() {
     private lateinit var binding: ActivityQrScannerBinding
     private lateinit var storageManager: StorageManager
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qr_scanner)
         binding = ActivityQrScannerBinding.inflate(layoutInflater)
         this.storageManager = StorageManager(this@QRScannerActivity)
 
+        // check for camera permissions / ask for them
         if (ContextCompat.checkSelfPermission(this@QRScannerActivity, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this@QRScannerActivity, arrayOf(android.Manifest.permission.CAMERA), 123)
         }
 
+        // set up the scanner
         var scanner = IntentIntegrator(this@QRScannerActivity)
         scanner.setPrompt("Scan qr code")
         scanner.setOrientationLocked(true);
+
+        // catch the scanner result
         val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
             // Handle the returned result
             if (result != null){
@@ -49,9 +52,10 @@ class QRScannerActivity: AppCompatActivity() {
         getContent.launch(scanner.createScanIntent())
     }
 
-
-
-    fun handleResult(resultCode: Int, data: Intent?) {
+    /***
+     * function to handle the result of the qr-scanner intent
+     */
+    private fun handleResult(resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult( resultCode, data)
         if (result != null) {
             // If QRCode has no data.
@@ -67,6 +71,9 @@ class QRScannerActivity: AppCompatActivity() {
         }
     }
 
+    /***
+     * extracts the secret, issuer and label from the uri encoded by the qrcode
+     */
     private fun extractValues(url: String) : Boolean{
         try {
             val query = url.removePrefix("otpauth://totp/")
