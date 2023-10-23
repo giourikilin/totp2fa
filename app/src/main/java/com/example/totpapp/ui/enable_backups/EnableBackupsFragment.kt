@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.totpapp.R
 import com.example.totpapp.databinding.FragmentEnableBackupsBinding
+import android.util.Log
+
 
 class EnableBackupsFragment : Fragment() {
 
@@ -48,7 +50,9 @@ class EnableBackupsFragment : Fragment() {
         //using button click listener
         buttonRegister.setOnClickListener {
             //getting username& password
-            val pwd=editTextPassword.text.toString()
+            var pwd=editTextPassword.text.toString()
+            println(pwd)
+            Log.d("PWD", pwd)
         }
 
        return view
