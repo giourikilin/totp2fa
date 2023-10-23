@@ -3,6 +3,7 @@ package com.example.totpapp
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,7 +13,6 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.totpapp.databinding.ActivityMainBinding
-import com.example.totpapp.ui.qr_scanner_2.QRScannerActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,8 +28,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
 
         binding.appBarMain.fab.setOnClickListener {
-            val intent = Intent(this@MainActivity, QRScannerActivity::class.java)
-            startActivity(intent)
+            Toast.makeText(this, "Add your own action", Toast.LENGTH_LONG).show()
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
