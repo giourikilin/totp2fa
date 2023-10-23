@@ -2,9 +2,13 @@ package com.example.totpapp.ui.qr_scanner
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.net.wifi.ScanResult
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -19,6 +23,8 @@ class QRScannerActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityQrScannerBinding
     private lateinit var storageManager: StorageManager
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qr_scanner)
@@ -32,10 +38,16 @@ class QRScannerActivity: AppCompatActivity() {
         var scanner = IntentIntegrator(this@QRScannerActivity)
         scanner.setPrompt("Scan qr code")
         scanner.setOrientationLocked(true);
-        scanner.initiateScan()
+        val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
+            // Handle the returned string
+            findViewById<TextView>(R.id.qr_data).setText(result?.data?.extras.toString()?: "not found" )
+        }
+        getContent.launch(scanner.createScanIntent())
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+
+    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
             // If QRCode has no data.
@@ -51,7 +63,7 @@ class QRScannerActivity: AppCompatActivity() {
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
-    }
+    }*/
 
     private fun extractValues(url: String) : Boolean{
         try {
@@ -70,7 +82,7 @@ class QRScannerActivity: AppCompatActivity() {
             this.storageManager.saveToFile(data)
 
         }catch (e: Exception){
-            Toast.makeText(this, "This is not a valid QR code", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "This is not a valid code", Toast.LENGTH_LONG).show()
             return false
         }
         return true
