@@ -39,16 +39,20 @@ class QRScannerActivity: AppCompatActivity() {
         scanner.setPrompt("Scan qr code")
         scanner.setOrientationLocked(true);
         val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
-            // Handle the returned string
-            findViewById<TextView>(R.id.qr_data).setText(result?.data?.extras.toString()?: "not found" )
+            // Handle the returned result
+            if (result != null){
+                handleResult(result.resultCode, result.data)
+            } else {
+                findViewById<TextView>(R.id.qr_data).setText(R.string.result_not_found)
+            }
         }
         getContent.launch(scanner.createScanIntent())
     }
 
 
 
-    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+    fun handleResult(resultCode: Int, data: Intent?) {
+        val result = IntentIntegrator.parseActivityResult( resultCode, data)
         if (result != null) {
             // If QRCode has no data.
             if (result.contents == null) {
@@ -60,10 +64,8 @@ class QRScannerActivity: AppCompatActivity() {
                     findViewById<TextView>(R.id.qr_data).setText(R.string.result_not_found)
                 }
             }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
         }
-    }*/
+    }
 
     private fun extractValues(url: String) : Boolean{
         try {
@@ -80,7 +82,6 @@ class QRScannerActivity: AppCompatActivity() {
             data.put("issuer", issuer.value.removePrefix("issuer="))
             data.put("secret", secret.value.removePrefix("secret="))
             this.storageManager.saveToFile(data)
-
         }catch (e: Exception){
             Toast.makeText(this, "This is not a valid code", Toast.LENGTH_LONG).show()
             return false
