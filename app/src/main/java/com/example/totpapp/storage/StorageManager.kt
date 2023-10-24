@@ -1,13 +1,13 @@
 package com.example.totpapp.storage
 
 import android.content.Context
+import android.util.Log
 import com.example.totpapp.R
 import org.json.JSONObject
 import java.io.File
 
-class StorageManager(context: Context) {
-    val filename: String = R.string.storage_file.toString()
-    val context = context
+class StorageManager(private val context: Context) {
+    private val filename: String = R.string.storage_file.toString()
     private var file: File
 
     init {
@@ -31,11 +31,12 @@ class StorageManager(context: Context) {
     }
 
     fun readFromFile() : String {
-        var contents = context.openFileInput(this.filename).bufferedReader().useLines { lines ->
+        val contents = context.openFileInput(this.filename).bufferedReader().useLines { lines ->
             lines.fold("") { some, text ->
                 "$some\n$text"
             }
         }
+        Log.e("CONTENT", contents)
         // TODO: add decryption
         return contents
     }

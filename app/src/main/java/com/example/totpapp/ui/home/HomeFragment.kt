@@ -2,6 +2,7 @@ package com.example.totpapp.ui.home
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +15,13 @@ import com.example.totpapp.R
 import com.example.totpapp.databinding.FragmentHomeBinding
 import java.time.Instant
 
+private val itemModelList = ArrayList<HomeViewModel>()
 
 class HomeFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private val itemModelList = ArrayList<HomeViewModel>()
     private var _binding: FragmentHomeBinding? = null
+    private var item_list = ArrayList<String>()
 
     private val binding get() = _binding!!
 
@@ -31,7 +33,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadData()
         recyclerView.addItemDecoration(
             DividerItemDecoration(
                 context,
@@ -43,15 +44,16 @@ class HomeFragment : Fragment() {
             adapter = CustomListAdapter(itemModelList)
             recyclerView.adapter = adapter
         }
-    }
 
-    private fun loadData(){
-        val item1 = HomeViewModel("RUG", "giouri123", "234682", 30)
-        val item2 = HomeViewModel("RUG", "elena123", "981223", 30)
-        val item3 = HomeViewModel("RUG", "johanna123", "645732", 30)
-        itemModelList.add(item1)
-        itemModelList.add(item2)
-        itemModelList.add(item3)
+        arguments?.let {
+            it.getStringArrayList("fields")?.let {fields ->
+                item_list = fields
+                val new_entry = HomeViewModel(item_list[0], item_list[1], item_list[2], 30)
+                itemModelList.add(new_entry)
+                Log.e("FIELDSSSSSSSSSSSSSSSSSSSSSSSSS",item_list[0])
+            }
+        }
+        arguments = null
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

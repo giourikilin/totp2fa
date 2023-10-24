@@ -10,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.totpapp.R
 import com.example.totpapp.databinding.FragmentQrScannerBinding
 import com.example.totpapp.storage.StorageManager
+import com.example.totpapp.ui.home.HTOP
+import com.example.totpapp.ui.home.HomeViewModel
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
@@ -24,11 +26,14 @@ class QRScannerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentQrScannerBinding.inflate(inflater, container, false)
-        this.storageManager = StorageManager(requireContext())
-        scanFromFragment()
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        storageManager = StorageManager(requireContext())
+        scanFromFragment()
+    }
 
 
     private val fragmentLauncher = registerForActivityResult(ScanContract()) { result: ScanIntentResult ->
@@ -36,13 +41,10 @@ class QRScannerFragment : Fragment() {
             Toast.makeText(context, "Cancelled from fragment", Toast.LENGTH_LONG).show()
             findNavController().popBackStack()
         } else {
-            Toast.makeText(
-                context,
-                "Scanned from fragment: " + result.contents,
-                Toast.LENGTH_LONG
-            ).show()
+            Toast.makeText(context, "Scanned from fragment: " + result.contents, Toast.LENGTH_LONG).show()
             handleResult(result.contents)
         }
+
     }
 
     private fun scanFromFragment() {
@@ -88,12 +90,23 @@ class QRScannerFragment : Fragment() {
             data.put("label", label)
             data.put("issuer", issuer.value.removePrefix("issuer="))
             data.put("secret", secret.value.removePrefix("secret="))
-            this.storageManager.saveToFile(data)
+//            storageManager.saveToFile(data)
+            createEntry(label,issuer.value.removePrefix("issuer="), secret.value.removePrefix("secret="))
         }catch (e: Exception){
             Toast.makeText(context, "This is not a valid code", Toast.LENGTH_LONG).show()
             return false
         }
         return true
+    }
+
+    private fun createEntry(l: String, i: String, s: String) {
+        val arraylist = ArrayList<String>()
+        arraylist.add(l)
+        arraylist.add(i)
+        arraylist.add(s)
+        val bundle = Bundle()
+        bundle.putStringArrayList("fields", arraylist)
+        findNavController().navigate(R.id.nav_home, bundle)
     }
 
 
